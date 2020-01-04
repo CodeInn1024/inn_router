@@ -4,16 +4,15 @@
  * @Autor: lqrui.cn
  * @Date: 2020-01-03 16:18:32
  * @LastEditors  : lqrui.cn
- * @LastEditTime : 2020-01-03 18:02:31
+ * @LastEditTime : 2020-01-04 17:52:39
  -->
  
 # inn_router
 
 [![pub package](https://img.shields.io/pub/v/inn_router.svg)](https://pub.dartlang.org/packages/inn_router)
-[![GitHub stars](https://img.shields.io/github/stars/fluttercandies/inn_router)](https://github.com/fluttercandies/inn_router/stargazers) 
-[![GitHub forks](https://img.shields.io/github/forks/fluttercandies/inn_router)](https://github.com/fluttercandies/inn_router/network) 
-[![GitHub license](https://img.shields.io/github/license/fluttercandies/inn_router)](https://github.com/fluttercandies/inn_router/blob/master/LICENSE) 
-[![GitHub issues](https://img.shields.io/github/issues/fluttercandies/inn_router)](https://github.com/fluttercandies/inn_router/issues)
+[![GitHub stars](https://img.shields.io/github/stars/CodeInn1024/inn_router)](https://github.com/CodeInn1024/inn_router/stargazers) 
+[![GitHub forks](https://img.shields.io/github/forks/CodeInn1024/inn_router)](https://github.com/CodeInn1024/inn_router/network) 
+[![GitHub issues](https://img.shields.io/github/issues/CodeInn1024/inn_router)](https://github.com/CodeInn1024/inn_router/issues)
 
 
 ## 使用方法:
@@ -56,14 +55,16 @@ import 'package:inn_router/inn_router.dart';
 
 class Routes {
   static String path = "/router";
-  static InnRouterClass page1() => InnRouterClass(widget: Page1(), path: "$path/page1");
+  static InnRouterClass get page1 => InnRouterClass(widget: Page1(), path: "$path/page1");
+  static InnRouterClass page2(String parameter) => InnRouterClass(widget: Page1(parameter:parameter), path: "$path/page2");
 }
 ```
 
 * 使用
 
 ```dart
-InnRouter.push(Routes.page1());
+InnRouter.push(Routes.page1);
+InnRouter.push(Routes.page2("我是参数"));
 ```
 
 ## 功能
@@ -81,6 +82,10 @@ InnRouter.push(Routes.page1());
 | icon        | int                                     | 可选   | 图标                                    |
 | color       | int                                     | 可选   | 颜色                                    |
 
+### 设置权限表
+```
+InnRouter.roles = ["admin"];
+```
 
 ### 设置全局路由默认过度动画
 ```dart
@@ -89,5 +94,35 @@ InnRouter.transition = InnRouterTransition.cupertino;
 
 ### push 跳转新页面
 ```dart
-InnRouter.push(Routes.page1());
+InnRouter.push(Routes.page1);
+```
+
+### pop 返回
+```dart
+InnRouter.pop();
+```
+
+### popUntil 返回到指定路由
+```dart
+InnRouter.popUntil(Routes.page1);
+```
+
+### 销毁当前页面并跳转新页面
+```dart
+InnRouter.popUntil(Routes.page1);
+```
+
+### 把当前页面替换成新页面
+```dart
+InnRouter.pushReplacementNamed(Routes.page1);
+```
+
+### 返回并跳转新页面
+```dart
+InnRouter.popAndPushNamed(Routes.page1);
+```
+
+### 删除之前页面并跳转新页面
+```dart
+InnRouter.pushNamedAndRemoveUntil(Routes.page1, Routes.page2);
 ```
