@@ -4,10 +4,11 @@
  * @Autor: lqrui.cn
  * @Date: 2020-01-03 17:05:54
  * @LastEditors: lqrui.cn
- * @LastEditTime: 2020-01-04 17:57:29
+ * @LastEditTime: 2020-01-05 09:14:31
 */
 
 import './page1.dart';
+import './common.dart';
 import 'package:inn_router/inn_router.dart';
 
 class Routes {
@@ -37,4 +38,29 @@ class Routes {
         path: "$path/pushNamedAndRemoveUntil",
         title: "pushNamedAndRemoveUntil",
       );
+}
+
+class SlideRight extends PageRouteBuilder {
+  final InnRouterClass route;
+  SlideRight({this.route})
+      : super(
+          settings: RouteSettings(name: route.path),
+          transitionDuration: Duration(milliseconds: 300),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              route.widget,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero).animate(animation),
+            child: child,
+          ),
+        );
 }

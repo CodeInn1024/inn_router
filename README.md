@@ -4,7 +4,7 @@
  * @Autor: lqrui.cn
  * @Date: 2020-01-03 16:18:32
  * @LastEditors  : lqrui.cn
- * @LastEditTime : 2020-01-04 17:52:39
+ * @LastEditTime : 2020-01-05 09:13:59
  -->
  
 # inn_router
@@ -92,6 +92,39 @@ InnRouter.roles = ["admin"];
 InnRouter.transition = InnRouterTransition.cupertino;
 ```
 
+### 自定义路由过渡动画
+```dart
+class SlideRight extends PageRouteBuilder {
+  final InnRouterClass route;
+  SlideRight({this.route})
+      : super(
+          transitionDuration: Duration(milliseconds: 300),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              route.widget,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero).animate(animation),
+            child: child,
+          ),
+        );
+}
+
+// 全局使用
+InnRouter.transition = (InnRouterClass route) => SlideRight(route: route);
+
+// 单个路由使用
+InnRouterClass(widget: Page1(), path: "$path/material", title: "material", transition: (InnRouterClass route) => SlideRight(route: route));
+```
+
 ### push 跳转新页面
 ```dart
 InnRouter.push(Routes.page1);
@@ -107,22 +140,22 @@ InnRouter.pop();
 InnRouter.popUntil(Routes.page1);
 ```
 
-### 销毁当前页面并跳转新页面
+### removeRoute 销毁当前页面并跳转新页面
 ```dart
-InnRouter.popUntil(Routes.page1);
+InnRouter.removeRoute(Routes.page1);
 ```
 
-### 把当前页面替换成新页面
+### pushReplacementNamed 把当前页面替换成新页面
 ```dart
 InnRouter.pushReplacementNamed(Routes.page1);
 ```
 
-### 返回并跳转新页面
+### popAndPushNamed 返回并跳转新页面
 ```dart
 InnRouter.popAndPushNamed(Routes.page1);
 ```
 
-### 删除之前页面并跳转新页面
+### pushNamedAndRemoveUntil 删除之前页面并跳转新页面
 ```dart
 InnRouter.pushNamedAndRemoveUntil(Routes.page1, Routes.page2);
 ```
