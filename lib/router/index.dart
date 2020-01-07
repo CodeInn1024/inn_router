@@ -4,7 +4,7 @@
  * @Autor: lqrui.cn
  * @Date: 2019-10-28 08:51:12
  * @LastEditors: lqrui.cn
- * @LastEditTime: 2020-01-04 11:59:40
+ * @LastEditTime: 2020-01-06 15:50:06
 */
 
 import 'package:flutter/material.dart';
@@ -51,7 +51,11 @@ class InnRouter {
   static popAndPushNamed(InnRouterClass route) => navKey.currentState.popAndPushNamed(route.path, arguments: route);
 
   /// [删除之前页面并跳转新页面]
-  static pushNamedAndRemoveUntil(InnRouterClass route, InnRouterClass remove) => navKey.currentState.pushNamedAndRemoveUntil(route.path, ModalRoute.withName(remove.path), arguments: route);
+  static pushNamedAndRemoveUntil(InnRouterClass route, [InnRouterClass remove]) => navKey.currentState.pushNamedAndRemoveUntil(
+        route.path,
+        remove == null ? (route) => route == null : ModalRoute.withName(remove.path),
+        arguments: route,
+      );
 }
 
 Future hook(InnRouterClass route) async {
