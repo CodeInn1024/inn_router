@@ -4,16 +4,15 @@
  * @Autor: lqrui.cn
  * @Date: 2019-12-24 09:36:45
  * @LastEditors: lqrui.cn
- * @LastEditTime: 2020-01-03 17:36:10
+ * @LastEditTime: 2020-01-14 11:20:01
 */
 import 'package:flutter/material.dart';
 import './index.dart';
 
-class InnRouterClass {
+class IRouterClass {
   /// [路径]
   final String path;
 
-  
   /// [页面]
   final Widget widget;
 
@@ -23,20 +22,22 @@ class InnRouterClass {
   /// [角色权限]
   final List<String> roles;
 
+  /// [是否有权限]
+  final bool permission;
 
   /// [路由过度动画]
-  final Route<dynamic> Function(InnRouterClass) transition;
+  final Route<dynamic> Function(IRouterClass) transition;
 
   /// [权限不足回调]
   final bool Function() notAllowFun;
 
   /// [图标]
-  final int icon;
+  final IconData icon;
 
   /// [颜色]
-  final int color;
+  final Color color;
 
-  InnRouterClass({
+  IRouterClass({
     @required this.widget,
     @required this.path,
     this.roles = const [],
@@ -45,5 +46,7 @@ class InnRouterClass {
     this.notAllowFun,
     this.icon,
     this.color,
-  }) : transition = transition ?? InnRouter.transition;
+    bool permission,
+  })  : transition = transition ?? IRouter.transition,
+        permission = permission ?? hook(roles, notAllowFun);
 }

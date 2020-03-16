@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './common.dart';
 
-class InnRouterTransition {
-  static Route cupertino(InnRouterClass route) => CupertinoPageRoute(
+class IRouterTransition {
+  static Route cupertino(IRouterClass route) => CupertinoPageRoute(
         builder: (BuildContext context) => route.widget,
         title: route.title,
         settings: new RouteSettings(
@@ -21,11 +21,32 @@ class InnRouterTransition {
         ),
       );
 
-  static Route material(InnRouterClass route) => MaterialPageRoute(
+  static Route material(IRouterClass route) => MaterialPageRoute(
         builder: (BuildContext context) => route.widget,
         settings: RouteSettings(
           name: route.path,
           isInitialRoute: false,
         ),
       );
+  static Route fade(IRouterClass route) => FadeRoute(route);
+}
+
+class FadeRoute extends PageRouteBuilder {
+  final IRouterClass route;
+  FadeRoute(this.route)
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              route.widget,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              FadeTransition(opacity: animation, child: child),
+        );
 }

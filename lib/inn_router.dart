@@ -11,4 +11,4 @@ library inn_router;
 
 export './router/common.dart';
 export './router/animation.dart';
-export './router/index.dart' show InnRouter;
+export './router/index.dart' show IRouter;

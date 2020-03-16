@@ -38,7 +38,7 @@ import 'package:inn_router/inn_router.dart';
 Widget build(BuildContext context) {
 	return MaterialApp(
 		title: '',
-		navigatorKey: InnRouter.navKey, //添加
+		navigatorKey: IRouter.navKey, //添加
 	);
 }
 ```
@@ -55,21 +55,21 @@ import 'package:inn_router/inn_router.dart';
 
 class Routes {
   static String path = "/router";
-  static InnRouterClass get page1 => InnRouterClass(widget: Page1(), path: "$path/page1");
-  static InnRouterClass page2(String parameter) => InnRouterClass(widget: Page1(parameter:parameter), path: "$path/page2");
+  static IRouterClass get page1 => IRouterClass(widget: Page1(), path: "$path/page1");
+  static IRouterClass page2(String parameter) => IRouterClass(widget: Page1(parameter:parameter), path: "$path/page2");
 }
 ```
 
 * 使用
 
 ```dart
-InnRouter.push(Routes.page1);
-InnRouter.push(Routes.page2("我是参数"));
+IRouter.push(Routes.page1);
+IRouter.push(Routes.page2("我是参数"));
 ```
 
 ## 功能
 
-### 路由属性 InnRouterClass
+### 路由属性 IRouterClass
 
 | 属性        | 类型                                    | 默认值 | 描述                                    |
 | :---------- | :-------------------------------------- | :----- | :-------------------------------------- |
@@ -77,25 +77,25 @@ InnRouter.push(Routes.page2("我是参数"));
 | widget      | Widget                                  | 必须   | 页面                                    |
 | title       | String                                  | 可选   | 标题                                    |
 | roles       | List<String>                            | 可选   | 角色权限                                |
-| transition  | Route<dynamic> Function(InnRouterClass) | 可选   | 单个路由过度动画                        |
+| transition  | Route<dynamic> Function(IRouterClass) | 可选   | 单个路由过度动画                        |
 | notAllowFun | List<String>                            | 可选   | 权限不足回调，返回flase不跳转，true跳转 |
 | icon        | int                                     | 可选   | 图标                                    |
 | color       | int                                     | 可选   | 颜色                                    |
 
 ### 设置权限表
 ```
-InnRouter.roles = ["admin"];
+IRouter.roles = ["admin"];
 ```
 
 ### 设置全局路由默认过度动画
 ```dart
-InnRouter.transition = InnRouterTransition.cupertino;
+IRouter.transition = IRouterTransition.cupertino;
 ```
 
 ### 自定义路由过渡动画
 ```dart
 class SlideRight extends PageRouteBuilder {
-  final InnRouterClass route;
+  final IRouterClass route;
   SlideRight({this.route})
       : super(
           transitionDuration: Duration(milliseconds: 300),
@@ -119,43 +119,43 @@ class SlideRight extends PageRouteBuilder {
 }
 
 // 全局使用
-InnRouter.transition = (InnRouterClass route) => SlideRight(route: route);
+IRouter.transition = (IRouterClass route) => SlideRight(route: route);
 
 // 单个路由使用
-InnRouterClass(widget: Page1(), path: "$path/material", title: "material", transition: (InnRouterClass route) => SlideRight(route: route));
+IRouterClass(widget: Page1(), path: "$path/material", title: "material", transition: (IRouterClass route) => SlideRight(route: route));
 ```
 
 ### push 跳转新页面
 ```dart
-InnRouter.push(Routes.page1);
+IRouter.push(Routes.page1);
 ```
 
 ### pop 返回
 ```dart
-InnRouter.pop();
+IRouter.pop();
 ```
 
 ### popUntil 返回到指定路由
 ```dart
-InnRouter.popUntil(Routes.page1);
+IRouter.popUntil(Routes.page1);
 ```
 
 ### removeRoute 销毁当前页面并跳转新页面
 ```dart
-InnRouter.removeRoute(Routes.page1);
+IRouter.removeRoute(Routes.page1);
 ```
 
 ### pushReplacementNamed 把当前页面替换成新页面
 ```dart
-InnRouter.pushReplacementNamed(Routes.page1);
+IRouter.pushReplacementNamed(Routes.page1);
 ```
 
 ### popAndPushNamed 返回并跳转新页面
 ```dart
-InnRouter.popAndPushNamed(Routes.page1);
+IRouter.popAndPushNamed(Routes.page1);
 ```
 
 ### pushNamedAndRemoveUntil 删除之前页面并跳转新页面
 ```dart
-InnRouter.pushNamedAndRemoveUntil(Routes.page1, Routes.page2);
+IRouter.pushNamedAndRemoveUntil(Routes.page1, Routes.page2);
 ```
